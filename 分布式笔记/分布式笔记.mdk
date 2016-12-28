@@ -1,0 +1,136 @@
+Title         : 分布式系统复习
+Author        : 魏浩然
+Logo          : True
+
+[TITLE]
+
+[TOC]
+
+# 分布式系统模型
+
+## 什么是分布式系统?
+
+## 为什么要分布式系统
+
+- **Economics**
+- **Speed**: distributed bring more computing
+- **Inherent distribution**
+- **Reliability**: 坏了一台不要紧
+- **Increment growth**: 随时加机器
+
+## 分布式系统的目标
+- Making resources available
+- Distribution transparency
+- Openness
+- Scalability
+
+## 透明性和开放性
+### 透明性
+Access, Location, Migration, Relocaton, Replication, Concurrency, Failure
+
+### 开放性
+平台无关, environment free
+
+# 分布式系统架构
+## 架构风格
+- 逻辑符号代替机器
+- 时间(asynchronous)和空间(anonymous)分离
+
+## 组织形式
+### 中心化(Centralized)
+- Basic Client-Server Model
+
+### 去中心化(Decentralized)
+just like **P2P**
+### 混合(Hybrid)
+
+# 进程和线程
+## 进程
+- 三种状态: **Running**, **Ready**, **Blocked**
+- 独立的地址空间(address space)
+- 通过进程间通信(**IPC**)和共享内存来协作
+
+## 线程
+- 轻量级进程
+- 共享内存空间
+- 创建,切换和销毁的开销很小
+
+# 代码迁移
+
+## 强迁移v.s.弱迁移
+
+- 弱迁移: 只有**code segmentation**和**data segmentation** 
+- 强迁移: 迁移完整的对象,包括执行状态
+
+## 不同系统上的迁移
+- 环境不同没法执行代码
+- 进程和线程的上下文环境和机器的硬件操作系统等相关
+- 解决办法: 利用虚拟机的解释性语言(JVM其实也可以), 或者虚拟机
+
+# 通信
+
+## 通信类型
+- 短暂(transient)通信和持续(persistent)通信
+- 同步通信和异步通信
+
+## 远程过程调用(**RPC**)
+
+### RPC工作过程
+- Client
+  1. 客户端产生调用
+  2. stub产生消息,并移交给本地OS
+  3. 本地OS发送给远程OS
+  4. 远程OS交给当地stub
+  5. 当地stub解包消息并调用服务器端程序
+
+- Server
+  6. 服务器进行本地调用并返回结果给stub
+  7. stub打包消息并交给服务器端OS
+  8. OS发送给客户端OS
+  9. 客户端OS转交给客户端stub
+  10. stub解包并反馈给客户端程序
+
+### 故障处理
+- 客户端不能定位服务器: 返回错误代码或者抛出异常
+- 丢包: 试着重新发送几次, 仍然失败转成上一条
+- 未接受到: 一定时间后重新发送
+- 服务器宕机
+- 客户端宕机
+
+# 命名(naming)
+
+## 命名需求
+- 独立性(Unique), 可区分不同实体
+- 易扩展性(Scalability), 方便添加新的实体
+- 一致性(Consistency)
+- 效率(Performance),表现在命名解析上
+- 适应性强(Adaptability), 适合各种场景
+- 容错性(Fault Tolerance)
+
+## 命名方法
+- 用户友好型(Human-friendly), 具有实际含义
+- 地址(Address)
+- 标识符(Identifier)
+
+## 移动实体命名(Flat naming)
+1. Simple Solutions
+  - 广播(Broadcasting)
+  - 前向指针(A point to B if entity moves from A to B)
+  - Home-based(先访问一个命名服务器寻址,再建立连接)
+2. DHT(Distributed Hash Table)
+3. 层次地址服务(HIerarchical Location Serverices, HLS)
+
+## 命名解析
+- Iterative 迭代的
+- Recursive 递归的
+
+# 同步资源与管理
+## 时钟同步
+重要的不是完全相同的时间,而是相同的顺序.
+### 物理时间同步
+
+### 逻辑时钟----Lampart Algorithm
+
+Happen-before notion: \[\to\]
+
+
