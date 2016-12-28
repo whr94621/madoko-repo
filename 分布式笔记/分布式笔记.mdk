@@ -131,4 +131,18 @@ just like **P2P**
 
 ### 逻辑时钟----Lampart Algorithm
 
-Happen-before notion: 
+Happen-before notion: --> $a_i$
+
+**Logical clocks**
+
+- attach a timestep C to each event
+  - if a != b on the same process C(a) < C(b)
+  - if a sent message to b, C(a) < C(b)
+
+**Lampart Algorithm**
+
+- two successive event take place with P_i, C_i+1
+- P_i sent message to P_j, message a timestamp ts=C_i
+- P_j receive a message with timestamp ts, C_j = max(C_j, ts)
+
+
