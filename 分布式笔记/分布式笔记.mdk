@@ -141,8 +141,34 @@ Happen-before notion: --> $a_i$
 
 **Lampart Algorithm**
 
-- two successive event take place with P_i, C_i+1
+- do something on P_i, C_i += 1
 - P_i sent message to P_j, message a timestamp ts=C_i
-- P_j receive a message with timestamp ts, C_j = max(C_j, ts)
+- P_j receive a message with timestamp ts, C_j = max(C_j, ts), if ts is bigger C_j = C_j + ts **+1**
 
+**向量方法**
 
+稍后补充
+
+## 互斥访问
+- 利用中心服务器
+  
+  - Prons
+    1. 实现简单
+    2 fair
+  - Cons:
+    1. 不安全(中心节点崩溃)
+
+- 分布式算法(利用逻辑顺序)(慢但是鲁棒性好)
+  1. 广播访问位置,进程号,时间戳
+  2. 其他节点接收后
+    - 不需要访问, 返回ok
+    - 已经在里面, 暂不回复, 进队列
+    - 同样要访问, 比较时间戳, 对方早则返回ok, 否则返回空
+
+- 令牌环算法
+
+  形成一个环, 传递一个令牌, 谁收到谁先来.
+  
+
+# 复制和一致性
+## 复制的优势和不足
